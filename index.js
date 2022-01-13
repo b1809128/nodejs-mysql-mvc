@@ -1,8 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const homeRouter = require("./app/routes/home");
-const mysqlRouter = require("./app/routes/mysql");
-const bookRouter = require("./app/routes/book");
+const homeRouter = require("./app/routes/home.routes");
+const mysqlRouter = require("./app/routes/mysql.routes");
+const bookRouter = require("./app/routes/book.routes");
 const app = express();
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));

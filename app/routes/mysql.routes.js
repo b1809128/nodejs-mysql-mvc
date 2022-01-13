@@ -1,4 +1,5 @@
 var express = require("express");
+const { JSON } = require("mysql/lib/protocol/constants/types");
 var router = express.Router();
 var database = require("../database/connect")
 router.get("/", (req, res) => {
@@ -81,5 +82,17 @@ router.get("/delete", (req, res) => {
     res.send(`Delete post ${getID} success...`);
   });
 });
+
+router.get("/search", (req, res) => {
+  const tagName = req.query.tag;
+  // console.log(tagName)
+  // const sql = `select * from posts where posts.tags REGEXP CONCAT('^|, *', 'rap' ,' *,|$')`;
+  const sql = `SELECT * from posts WHERE concat(',',tags,',') LIKE concat(',%${tagName}%,')`
+  database.query(sql, (err, result) => {
+    if (err) throw err;
+    // console.log(result.map(data => {return (data.tags)}));
+    res.send(result);
+  });
+})
 
 module.exports = router;
